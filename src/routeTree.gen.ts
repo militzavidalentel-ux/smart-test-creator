@@ -14,6 +14,7 @@ import { Route as ContenidosRouteImport } from './routes/contenidos'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as GenerarRouteImport } from './routes/generar'
 import { Route as PruebasIndexRouteImport } from './routes/pruebas.index'
+import { Route as PruebasPruebaIdIndexRouteImport } from './routes/pruebas.$pruebaId.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const PruebasIndexRoute = PruebasIndexRouteImport.update({
   path: '/pruebas/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PruebasPruebaIdIndexRoute = PruebasPruebaIdIndexRouteImport.update({
+  id: '/pruebas/$pruebaId/',
+  path: '/pruebas/$pruebaId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
   '/pruebas/': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId/': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
   '/pruebas': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,33 @@ export interface FileRoutesById {
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
   '/pruebas/': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId/': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contenidos' | '/cursos' | '/generar' | '/pruebas/'
+  fullPaths:
+    | '/'
+    | '/contenidos'
+    | '/cursos'
+    | '/generar'
+    | '/pruebas/'
+    | '/pruebas/$pruebaId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contenidos' | '/cursos' | '/generar' | '/pruebas'
-  id: '__root__' | '/' | '/contenidos' | '/cursos' | '/generar' | '/pruebas/'
+  to:
+    | '/'
+    | '/contenidos'
+    | '/cursos'
+    | '/generar'
+    | '/pruebas'
+    | '/pruebas/$pruebaId'
+  id:
+    | '__root__'
+    | '/'
+    | '/contenidos'
+    | '/cursos'
+    | '/generar'
+    | '/pruebas/'
+    | '/pruebas/$pruebaId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +105,7 @@ export interface RootRouteChildren {
   CursosRoute: typeof CursosRoute
   GenerarRoute: typeof GenerarRoute
   PruebasIndexRoute: typeof PruebasIndexRoute
+  PruebasPruebaIdIndexRoute: typeof PruebasPruebaIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PruebasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pruebas/$pruebaId/': {
+      id: '/pruebas/$pruebaId/'
+      path: '/pruebas/$pruebaId'
+      fullPath: '/pruebas/$pruebaId/'
+      preLoaderRoute: typeof PruebasPruebaIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   CursosRoute: CursosRoute,
   GenerarRoute: GenerarRoute,
   PruebasIndexRoute: PruebasIndexRoute,
+  PruebasPruebaIdIndexRoute: PruebasPruebaIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
