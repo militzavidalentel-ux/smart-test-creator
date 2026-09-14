@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContenidosRouteImport } from './routes/contenidos'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as GenerarRouteImport } from './routes/generar'
+import { Route as RubricasRouteImport } from './routes/rubricas'
 import { Route as PruebasIndexRouteImport } from './routes/pruebas.index'
 import { Route as PruebasPruebaIdIndexRouteImport } from './routes/pruebas.$pruebaId.index'
 import { Route as PruebasPruebaIdEvaluarRouteImport } from './routes/pruebas.$pruebaId.evaluar'
@@ -36,6 +37,11 @@ const CursosRoute = CursosRouteImport.update({
 const GenerarRoute = GenerarRouteImport.update({
   id: '/generar',
   path: '/generar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RubricasRoute = RubricasRouteImport.update({
+  id: '/rubricas',
+  path: '/rubricas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PruebasIndexRoute = PruebasIndexRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas/': typeof PruebasIndexRoute
   '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
   '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas': typeof PruebasIndexRoute
   '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
   '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas/': typeof PruebasIndexRoute
   '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
   '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas/'
     | '/pruebas/$pruebaId/evaluar'
     | '/pruebas/$pruebaId/imprimir'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas'
     | '/pruebas/$pruebaId/evaluar'
     | '/pruebas/$pruebaId/imprimir'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas/'
     | '/pruebas/$pruebaId/evaluar'
     | '/pruebas/$pruebaId/imprimir'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   ContenidosRoute: typeof ContenidosRoute
   CursosRoute: typeof CursosRoute
   GenerarRoute: typeof GenerarRoute
+  RubricasRoute: typeof RubricasRoute
   PruebasIndexRoute: typeof PruebasIndexRoute
   PruebasPruebaIdEvaluarRoute: typeof PruebasPruebaIdEvaluarRoute
   PruebasPruebaIdImprimirRoute: typeof PruebasPruebaIdImprimirRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/generar'
       fullPath: '/generar'
       preLoaderRoute: typeof GenerarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rubricas': {
+      id: '/rubricas'
+      path: '/rubricas'
+      fullPath: '/rubricas'
+      preLoaderRoute: typeof RubricasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pruebas/': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContenidosRoute: ContenidosRoute,
   CursosRoute: CursosRoute,
   GenerarRoute: GenerarRoute,
+  RubricasRoute: RubricasRoute,
   PruebasIndexRoute: PruebasIndexRoute,
   PruebasPruebaIdEvaluarRoute: PruebasPruebaIdEvaluarRoute,
   PruebasPruebaIdImprimirRoute: PruebasPruebaIdImprimirRoute,
