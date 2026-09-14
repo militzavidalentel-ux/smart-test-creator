@@ -13,8 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContenidosRouteImport } from './routes/contenidos'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as GenerarRouteImport } from './routes/generar'
+import { Route as RubricasRouteImport } from './routes/rubricas'
 import { Route as PruebasIndexRouteImport } from './routes/pruebas.index'
 import { Route as PruebasPruebaIdIndexRouteImport } from './routes/pruebas.$pruebaId.index'
+import { Route as PruebasPruebaIdEvaluarRouteImport } from './routes/pruebas.$pruebaId.evaluar'
+import { Route as PruebasPruebaIdImprimirRouteImport } from './routes/pruebas.$pruebaId.imprimir'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,6 +39,11 @@ const GenerarRoute = GenerarRouteImport.update({
   path: '/generar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RubricasRoute = RubricasRouteImport.update({
+  id: '/rubricas',
+  path: '/rubricas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PruebasIndexRoute = PruebasIndexRouteImport.update({
   id: '/pruebas/',
   path: '/pruebas/',
@@ -46,13 +54,26 @@ const PruebasPruebaIdIndexRoute = PruebasPruebaIdIndexRouteImport.update({
   path: '/pruebas/$pruebaId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PruebasPruebaIdEvaluarRoute = PruebasPruebaIdEvaluarRouteImport.update({
+  id: '/pruebas/$pruebaId/evaluar',
+  path: '/pruebas/$pruebaId/evaluar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PruebasPruebaIdImprimirRoute = PruebasPruebaIdImprimirRouteImport.update({
+  id: '/pruebas/$pruebaId/imprimir',
+  path: '/pruebas/$pruebaId/imprimir',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas/': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
+  '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
   '/pruebas/$pruebaId/': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +81,10 @@ export interface FileRoutesByTo {
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
+  '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
   '/pruebas/$pruebaId': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRoutesById {
@@ -69,7 +93,10 @@ export interface FileRoutesById {
   '/contenidos': typeof ContenidosRoute
   '/cursos': typeof CursosRoute
   '/generar': typeof GenerarRoute
+  '/rubricas': typeof RubricasRoute
   '/pruebas/': typeof PruebasIndexRoute
+  '/pruebas/$pruebaId/evaluar': typeof PruebasPruebaIdEvaluarRoute
+  '/pruebas/$pruebaId/imprimir': typeof PruebasPruebaIdImprimirRoute
   '/pruebas/$pruebaId/': typeof PruebasPruebaIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,7 +106,10 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas/'
+    | '/pruebas/$pruebaId/evaluar'
+    | '/pruebas/$pruebaId/imprimir'
     | '/pruebas/$pruebaId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -87,7 +117,10 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas'
+    | '/pruebas/$pruebaId/evaluar'
+    | '/pruebas/$pruebaId/imprimir'
     | '/pruebas/$pruebaId'
   id:
     | '__root__'
@@ -95,7 +128,10 @@ export interface FileRouteTypes {
     | '/contenidos'
     | '/cursos'
     | '/generar'
+    | '/rubricas'
     | '/pruebas/'
+    | '/pruebas/$pruebaId/evaluar'
+    | '/pruebas/$pruebaId/imprimir'
     | '/pruebas/$pruebaId/'
   fileRoutesById: FileRoutesById
 }
@@ -104,7 +140,10 @@ export interface RootRouteChildren {
   ContenidosRoute: typeof ContenidosRoute
   CursosRoute: typeof CursosRoute
   GenerarRoute: typeof GenerarRoute
+  RubricasRoute: typeof RubricasRoute
   PruebasIndexRoute: typeof PruebasIndexRoute
+  PruebasPruebaIdEvaluarRoute: typeof PruebasPruebaIdEvaluarRoute
+  PruebasPruebaIdImprimirRoute: typeof PruebasPruebaIdImprimirRoute
   PruebasPruebaIdIndexRoute: typeof PruebasPruebaIdIndexRoute
 }
 
@@ -138,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GenerarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rubricas': {
+      id: '/rubricas'
+      path: '/rubricas'
+      fullPath: '/rubricas'
+      preLoaderRoute: typeof RubricasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pruebas/': {
       id: '/pruebas/'
       path: '/pruebas'
@@ -152,6 +198,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PruebasPruebaIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pruebas/$pruebaId/evaluar': {
+      id: '/pruebas/$pruebaId/evaluar'
+      path: '/pruebas/$pruebaId/evaluar'
+      fullPath: '/pruebas/$pruebaId/evaluar'
+      preLoaderRoute: typeof PruebasPruebaIdEvaluarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pruebas/$pruebaId/imprimir': {
+      id: '/pruebas/$pruebaId/imprimir'
+      path: '/pruebas/$pruebaId/imprimir'
+      fullPath: '/pruebas/$pruebaId/imprimir'
+      preLoaderRoute: typeof PruebasPruebaIdImprimirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -160,7 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContenidosRoute: ContenidosRoute,
   CursosRoute: CursosRoute,
   GenerarRoute: GenerarRoute,
+  RubricasRoute: RubricasRoute,
   PruebasIndexRoute: PruebasIndexRoute,
+  PruebasPruebaIdEvaluarRoute: PruebasPruebaIdEvaluarRoute,
+  PruebasPruebaIdImprimirRoute: PruebasPruebaIdImprimirRoute,
   PruebasPruebaIdIndexRoute: PruebasPruebaIdIndexRoute,
 }
 export const routeTree = rootRouteImport
