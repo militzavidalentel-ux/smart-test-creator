@@ -44,7 +44,12 @@ function Imprimir() {
   return (
     <div className="min-h-screen bg-muted/40 py-8 print:bg-white print:py-0">
       <div className="no-print mx-auto mb-4 flex max-w-[820px] justify-end gap-2 px-4">
-        <Button onClick={() => window.print()}>
+        <Button
+          onClick={() => {
+            document.title = `${p?.nombre ?? "Prueba"}${conRubrica ? " + Rúbrica" : ""}`;
+            window.print();
+          }}
+        >
           <Printer className="size-4" /> Imprimir o guardar PDF
         </Button>
       </div>
